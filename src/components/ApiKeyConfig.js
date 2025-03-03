@@ -3,8 +3,7 @@ import styled from 'styled-components';
 
 // Check if we're in production (deployed to Hugging Face)
 const isHuggingFace = typeof window !== 'undefined' && window.location.hostname.includes('huggingface.co');
-const isVercel = typeof window !== 'undefined' && window.location.hostname.includes('vercel.app');
-const isDeployed = isHuggingFace || isVercel;
+const isVercel = typeof window !== 'undefined' && window.location.hostname.includes('vercel.app'); 
 
 const ConfigContainer = styled.div`
   width: 100%;
