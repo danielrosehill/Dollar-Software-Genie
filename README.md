@@ -1,7 +1,5 @@
 # The Dollar Software Genie
-
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://dollar-software-genie.vercel.app/)
-
+ 
 Generate creative software ideas that cost approximately $1 in API fees to implement using AI code generation tools.
 
 ## Features
