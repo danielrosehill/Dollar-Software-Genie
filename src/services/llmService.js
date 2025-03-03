@@ -150,14 +150,24 @@ export const generateIdea = async (apiKey, category = 'all', previousIdeas = [])
     // Determine if we're in development or production
     const isProduction = process.env.NODE_ENV === 'production';
     
-    // Check if we're deployed to Vercel
-    const isVercel = typeof window !== 'undefined' && 
-                    window.location.hostname.includes('vercel.app');
+    // Check if we're deployed to Vercel - more robust check
+    const isVercel = typeof window !== 'undefined' && (
+      window.location.hostname.includes('vercel.app') || 
+      window.location.hostname === 'dollar-software-genie.vercel.app'
+    );
     
-    // Use our Vercel API proxy if deployed to Vercel, otherwise use CORS proxy
-    const apiUrl = isProduction 
-      ? (isVercel ? '/api/openai-proxy' : 'https://cors-anywhere.herokuapp.com/https://api.openai.com/v1/chat/completions')
-      : 'https://api.openai.com/v1/chat/completions';
+    // Always use the local API proxy when on Vercel
+    let apiUrl;
+    if (isVercel) {
+      apiUrl = '/api';
+      console.log('Using Vercel API proxy for code generation');
+    } else if (isProduction) {
+      apiUrl = 'https://cors-anywhere.herokuapp.com/https://api.openai.com/v1/chat/completions';
+      console.log('Using CORS proxy for code generation');
+    } else {
+      apiUrl = 'https://api.openai.com/v1/chat/completions';
+      console.log('Using direct OpenAI API for code generation');
+    }
     
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -290,14 +300,24 @@ console.log('Please provide an API key to generate real code');`
     // Determine if we're in development or production
     const isProduction = process.env.NODE_ENV === 'production';
     
-    // Check if we're deployed to Vercel
-    const isVercel = typeof window !== 'undefined' && 
-                    window.location.hostname.includes('vercel.app');
+    // Check if we're deployed to Vercel - more robust check
+    const isVercel = typeof window !== 'undefined' && (
+      window.location.hostname.includes('vercel.app') || 
+      window.location.hostname === 'dollar-software-genie.vercel.app'
+    );
     
-    // Use our Vercel API proxy if deployed to Vercel, otherwise use CORS proxy
-    const apiUrl = isProduction 
-      ? (isVercel ? '/api/openai-proxy' : 'https://cors-anywhere.herokuapp.com/https://api.openai.com/v1/chat/completions')
-      : 'https://api.openai.com/v1/chat/completions';
+    // Always use the local API proxy when on Vercel
+    let apiUrl;
+    if (isVercel) {
+      apiUrl = '/api';
+      console.log('Using Vercel API proxy');
+    } else if (isProduction) {
+      apiUrl = 'https://cors-anywhere.herokuapp.com/https://api.openai.com/v1/chat/completions';
+      console.log('Using CORS proxy');
+    } else {
+      apiUrl = 'https://api.openai.com/v1/chat/completions';
+      console.log('Using direct OpenAI API');
+    }
     
     const response = await fetch(apiUrl, {
       method: 'POST',
