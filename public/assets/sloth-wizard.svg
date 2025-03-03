@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="80" fill="#a1887f" />
+  
+  <!-- Sloth body -->
+  <ellipse cx="100" cy="110" rx="60" ry="65" fill="#8d6e63" />
+  
+  <!-- Sloth face -->
+  <circle cx="100" cy="80" r="40" fill="#a1887f" />
+  
+  <!-- Sloth eyes -->
+  <circle cx="85" cy="70" r="8" fill="black" />
+  <circle cx="115" cy="70" r="8" fill="black" />
+  <circle cx="85" cy="68" r="3" fill="white" />
+  <circle cx="115" cy="68" r="3" fill="white" />
+  
+  <!-- Sloth nose and mouth -->
+  <ellipse cx="100" cy="85" rx="10" ry="6" fill="#6d4c41" />
+  <path d="M90,95 Q100,105 110,95" fill="none" stroke="#6d4c41" stroke-width="3" />
+  
+  <!-- Sloth claws -->
+  <path d="M70,130 L65,145 M80,135 L75,150 M90,138 L85,153" stroke="#6d4c41" stroke-width="3" stroke-linecap="round" />
+  <path d="M130,130 L135,145 M120,135 L125,150 M110,138 L115,153" stroke="#6d4c41" stroke-width="3" stroke-linecap="round" />
+  
+  <!-- Wizard hat -->
+  <path d="M70,50 L100,10 L130,50 Z" fill="#673ab7" />
+  <path d="M65,50 L135,50 Q135,60 100,60 Q65,60 65,50 Z" fill="#9575cd" />
+  <circle cx="100" cy="25" r="5" fill="#ffeb3b" />
+  
+  <!-- Wizard's Wand -->
+  <line x1="130" y1="120" x2="160" y2="90" stroke="#8b4513" stroke-width="5" stroke-linecap="round" />
+  <circle cx="165" cy="85" r="10" fill="#ffeb3b" />
+  <circle cx="165" cy="85" r="4" fill="#fff" opacity="0.7" />
+  
+  <!-- Sparkles around the wand -->
+  <path d="M170,80 L175,85 M170,90 L175,85 M180,85 L175,85" stroke="#ffeb3b" stroke-width="2" />
+  <path d="M160,70 L165,75 M160,80 L165,75 M170,75 L165,75" stroke="#ffeb3b" stroke-width="2" />
+  <path d="M150,90 L155,95 M150,100 L155,95 M160,95 L155,95" stroke="#ffeb3b" stroke-width="2" />
+</svg>
