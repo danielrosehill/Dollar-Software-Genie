@@ -197,7 +197,22 @@ The systemPrompt should be detailed enough that an AI code generator could creat
       })
     });
     
-    const data = await response.json();
+    // Check if response is ok
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('API response error:', response.status, errorText);
+      throw new Error(`API error: ${response.status} ${response.statusText}`);
+    }
+    
+    // Try to parse the response as JSON
+    let data;
+    try {
+      data = await response.json();
+    } catch (error) {
+      const rawText = await response.text();
+      console.error('Failed to parse API response as JSON:', rawText);
+      throw new Error('Failed to parse API response as JSON');
+    }
     
     if (data.error) {
       throw new Error(data.error.message || 'Error generating idea');
@@ -329,7 +344,22 @@ Prompt: ${idea.systemPrompt}`
       })
     });
     
-    const data = await response.json();
+    // Check if response is ok
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('API response error:', response.status, errorText);
+      throw new Error(`API error: ${response.status} ${response.statusText}`);
+    }
+    
+    // Try to parse the response as JSON
+    let data;
+    try {
+      data = await response.json();
+    } catch (error) {
+      const rawText = await response.text();
+      console.error('Failed to parse API response as JSON:', rawText);
+      throw new Error('Failed to parse API response as JSON');
+    }
     
     if (data.error) {
       throw new Error(data.error.message || 'Error generating code');

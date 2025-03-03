@@ -1,5 +1,14 @@
 // Serverless function to proxy requests to OpenAI API
 export default async function handler(req, res) {
+  // Parse request body if it's a string
+  if (typeof req.body === 'string') {
+    try {
+      req.body = JSON.parse(req.body);
+    } catch (error) {
+      return res.status(400).json({ error: 'Invalid JSON body' });
+    }
+  }
+
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,16 +37,42 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
         'Authorization': req.headers.authorization
       },
-      body: JSON.stringify(req.body)
+      body: JSON.stringify(req.body || {})
     });
 
-    // Get the response data
-    const data = await response.json();
+    // Check if response is ok
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('OpenAI API error:', errorText);
+      return res.status(response.status).json({ 
+        error: { 
+          message: `OpenAI API error: ${response.status} ${response.statusText}` 
+        } 
+      });
+    }
+
+    // Try to parse the response as JSON
+    let data;
+    try {
+      data = await response.json();
+    } catch (error) {
+      const rawText = await response.text();
+      console.error('Failed to parse OpenAI response as JSON:', rawText);
+      return res.status(500).json({ 
+        error: { 
+          message: 'Failed to parse OpenAI response as JSON' 
+        } 
+      });
+    }
 
     // Return the response
     return res.status(response.status).json(data);
   } catch (error) {
     console.error('Error proxying request to OpenAI:', error);
-    return res.status(500).json({ error: 'Failed to proxy request to OpenAI' });
+    return res.status(500).json({ 
+      error: { 
+        message: `Failed to proxy request to OpenAI: ${error.message}` 
+      } 
+    });
   }
 }
