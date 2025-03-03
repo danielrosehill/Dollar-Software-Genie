@@ -159,7 +159,7 @@ export const generateIdea = async (apiKey, category = 'all', previousIdeas = [])
     // Always use the local API proxy when on Vercel
     let apiUrl;
     if (isVercel) {
-      apiUrl = '/api';
+      apiUrl = '/api/index';
       console.log('Using Vercel API proxy for code generation');
     } else if (isProduction) {
       apiUrl = 'https://cors-anywhere.herokuapp.com/https://api.openai.com/v1/chat/completions';
@@ -309,7 +309,7 @@ console.log('Please provide an API key to generate real code');`
     // Always use the local API proxy when on Vercel
     let apiUrl;
     if (isVercel) {
-      apiUrl = '/api';
+      apiUrl = '/api/index';
       console.log('Using Vercel API proxy');
     } else if (isProduction) {
       apiUrl = 'https://cors-anywhere.herokuapp.com/https://api.openai.com/v1/chat/completions';
