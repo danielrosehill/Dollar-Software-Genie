@@ -50,6 +50,12 @@ const ButtonsContainer = styled.div`
   margin-top: 2rem;
 `;
 
+const TopButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+`;
+
 const ActionButton = styled.button`
   padding: 0.75rem 1.5rem;
   border: none;
@@ -69,6 +75,19 @@ const ActionButton = styled.button`
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
+  }
+`;
+
+const SpinButton = styled(ActionButton)`
+  background-color: var(--secondary-color);
+  color: black;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: #f9a825;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -144,7 +163,7 @@ const CopyButton = styled.button`
   }
 `;
 
-const IdeaDisplay = ({ idea, onGenerateCode, onBackToSlot, isLoading }) => {
+const IdeaDisplay = ({ idea, onGenerateCode, onBackToSlot, isLoading, onSpinForFortune }) => {
   const [showPrompt, setShowPrompt] = React.useState(false);
   
   const handleTogglePrompt = () => {
@@ -158,6 +177,15 @@ const IdeaDisplay = ({ idea, onGenerateCode, onBackToSlot, isLoading }) => {
   
   return (
     <IdeaContainer>
+      <TopButtonsContainer>
+        <SpinButton 
+          onClick={onSpinForFortune}
+          disabled={isLoading}
+        >
+          New Idea
+        </SpinButton>
+      </TopButtonsContainer>
+      
       <IdeaHeader>
         <GenieIcon>🧞</GenieIcon>
         <IdeaTitle>{idea.title}</IdeaTitle>

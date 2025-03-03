@@ -205,6 +205,28 @@ function App() {
     setGeneratedCode(null);
   };
 
+  const handleSpinForFortune = async () => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const newIdea = await generateIdea(apiKey, selectedCategory, previousIdeas);
+      
+      // Add to previous ideas to avoid repetition
+      setPreviousIdeas(prev => [...prev, newIdea.title]);
+      
+      // Update the current idea with the new idea
+      setCurrentIdea(newIdea);
+      
+      // Stay in the idea view
+      setView('idea');
+    } catch (err) {
+      setError('Failed to generate idea: ' + err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleNextIdea = async () => {
     // Instead of going back to slot machine, directly generate a new idea
     setIsLoading(true);
@@ -286,6 +308,7 @@ function App() {
             onGenerateCode={handleGenerateCode}
             onBackToSlot={handleBackToSlot}
             isLoading={isLoading}
+            onSpinForFortune={handleSpinForFortune}
           />
         )}
 
